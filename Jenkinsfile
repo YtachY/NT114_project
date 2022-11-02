@@ -5,7 +5,9 @@ pipeline {
     }
     stages {
         stage("Setup") {
-            echo "DONE!"
+            steps {
+                echo "DONE!"
+            }
         }
         stage("Analysis") {
             steps {
@@ -35,7 +37,9 @@ pipeline {
             }
         }
         stage("Teardown") {
-            echo "Tear done"
+            steps {
+                echo "Tear done"
+            }
         }
     }
 }
