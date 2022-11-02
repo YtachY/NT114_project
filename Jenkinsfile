@@ -1,10 +1,13 @@
 pipeline {
     agent any
     parameters {
-        string defaultValue: '/home/kagi/target/', description: '', name: 'INPUT_LOCATION', trim: true
+        string defaultValue: '/home/kagi/target', description: '', name: 'INPUT_LOCATION', trim: true
     }
     stages {
-        stage('Analysis') {
+        stage("Setup") {
+            echo "DONE!"
+        }
+        stage("Analysis") {
             steps {
                 script {
                     dir(INPUT_LOCATION) {
@@ -30,6 +33,9 @@ pipeline {
                     }
                 }
             }
+        }
+        stage("Teardown") {
+            echo "Tear done"
         }
     }
 }
