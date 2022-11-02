@@ -1,5 +1,5 @@
 pipeline {
-    agent { any }
+    agent any
     parameters {
         string defaultValue: '/home/kagi/target/', description: '', name: 'INPUT_LOCATION', trim: true
     }
