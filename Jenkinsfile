@@ -1,26 +1,29 @@
 pipeline {
-    agent any 
+    agent any
     stages {
-        stage('Dev') {
+        stage('Example') {
             steps {
-                echo 'Hello dev first!' 
-            }
-            steps {
-                echo 'Hello dev second!' 
+                echo 'Hello World'
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Hello test!' 
-            }
-            steps {
-                echo 'Hello double!' 
-            }
+    }
+
+    post {
+        always {
+            echo 'One way or another, I have finished'
+            deleteDir() /* clean up our workspace */
         }
-        stage('Build') {
-            steps {
-                echo 'Hello build!' 
-            }
+        success {
+            echo 'I succeeeded!'
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+        changed {
+            echo 'Things were different before...'
         }
     }
 }
