@@ -15,7 +15,7 @@ pipeline {
                         TASK_COLLECTION["Use script"] =  {
                             check_debug_cmd = "${env.INPUT_LOCATION}/check-debug.sh ${env.INPUT_LOCATION}/${f}"
                             def result = sh label: 'Check debuggable', returnStdout: true, script: check_debug_cmd
-                            sh "echo ${upload_result}"
+                            sh "echo ${result}"
                         }
                         parallel(TASK_COLLECTION)
                     }
