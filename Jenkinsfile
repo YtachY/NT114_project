@@ -13,9 +13,9 @@ pipeline {
                     files.each { f ->
                         def TASK_COLLECTION = [:]
                         TASK_COLLECTION["Use script"] =  {
-                            check_debug_cmd = "${env.INPUT_LOCATION}/check-debug.sh ${env.INPUT_LOCATION}/${f}"
+                            // check_debug_cmd = "${env.INPUT_LOCATION}/check-debug.sh ${env.INPUT_LOCATION}/${f}"
                             // def result = sh label: 'Check debuggable', returnStdout: true, script: check_debug_cmd
-                            def result = sh(script: check_debug_cmd, returnStdout:true).trim()
+                            def result = sh(script: "${env.INPUT_LOCATION}/check-debug.sh ${env.INPUT_LOCATION}/${f}", returnStdout:true).trim()
                             sh "echo ${result}"
                         }
                         parallel(TASK_COLLECTION)
