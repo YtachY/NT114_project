@@ -4,7 +4,7 @@ pipeline {
         string defaultValue: '/home/kagi/target', description: '', name: 'INPUT_LOCATION', trim: true
     }
     stages {
-        stage('Check debuggble') {
+        stage('Check debuggable') {
             steps {
                 script {
                     dir(INPUT_LOCATION) {
@@ -12,13 +12,10 @@ pipeline {
                     }
                     files.each { f ->
                         def TASK_COLLECTION = [:]
-                        TASK_COLLECTION["Use aapt"] =  {
+                        TASK_COLLECTION["Use script"] =  {
                             check_debug_cmd = "${env.INPUT_LOCATION}/check-debug.sh ${env.INPUT_LOCATION}/${f}"
-                            upload_result = sh label: 'Check debuggable', returnStdout: true, script: check_debug_cmd
-                        }
-                        TASK_COLLECTION["Use aapt version 2"] = {
-                            check_debug_cmd = "aapt dump xmltree ${env.INPUT_LOCATION}/${f} AndroidManifest.xml | grep debuggable"
-                            upload_result = sh label: 'Check debuggable', returnStdout: true, script: check_debug_cmd
+                            def result = sh label: 'Check debuggable', returnStdout: true, script: check_debug_cmd
+                            sh "echo ${upload_result}"
                         }
                         parallel(TASK_COLLECTION)
                     }
