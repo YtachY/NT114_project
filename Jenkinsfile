@@ -24,7 +24,7 @@ pipeline {
                         }
                         TASK_COLLECTION["get permissions file ${f}"] = {
                             list_all_permission_cmd = "aapt d permissions ${env.INPUT_LOCATION}/${f}"
-                            upload_result = sh(label: 'list all permissions', returnStdout: true, script: list_all_permission_cmd).trim()
+                            echo sh(label: 'list all permissions', returnStdout: true, script: list_all_permission_cmd).trim()
                         }
                         parallel(TASK_COLLECTION)
                     }
