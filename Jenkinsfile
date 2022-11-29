@@ -21,13 +21,6 @@ pipeline {
           }
         }
 
-        stage('setup4') {
-          steps {
-            echo 'Message 4 in setup'
-            timeout(time: 4)
-          }
-        }
-
       }
     }
 
@@ -91,6 +84,12 @@ pipeline {
         }
       }
 
+    }
+  }
+
+  stage('Run') {
+    steps {
+      echo 'End'
     }
   }
 
