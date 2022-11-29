@@ -19,7 +19,7 @@ pipeline {
                                 sh "echo safe"
                             }
                             else {
-                                sh "echo '${env.INPUT_LOCATION}/${f}' is debuggable"
+                                sh "echo '${env.INPUT_LOCATION}/${f}' is MEOMEO"
                             }
                         }
                         parallel(TASK_COLLECTION)
