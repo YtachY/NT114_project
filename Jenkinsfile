@@ -4,7 +4,7 @@ pipeline {
         string defaultValue: '/home/kagi/target', description: '', name: 'INPUT_LOCATION', trim: true
     }
     stages {
-        stage('Check debuggable') {
+        stage('Start pentest') {
             steps {
                 script {
                     dir(INPUT_LOCATION) {
@@ -12,15 +12,19 @@ pipeline {
                     }
                     files.each { f ->
                         def TASK_COLLECTION = [:]
-                        TASK_COLLECTION["Check ${f}"] =  {
+                        TASK_COLLECTION["Check debuggable file ${f}"] =  {
                             sh "echo '[+] Checking ${env.INPUT_LOCATION}/${f} if it could be debuggable...'"
                             def result = sh(script: "${env.INPUT_LOCATION}/check-debug.sh ${env.INPUT_LOCATION}/${f}", returnStdout:true).trim()
                             if (result.isEmpty()) {
                                 sh "echo safe"
                             }
                             else {
-                                sh "echo '${env.INPUT_LOCATION}/${f}' is MEOMEO"
+                                sh "echo '${env.INPUT_LOCATION}/${f}' is DEBUGGABLE"
                             }
+                        }
+                        TASK_COLLECTION["get permissions file ${f}"] = {
+                            list_all_permission_cmd = "aapt d permissions ${env.INPUT_LOCATION}/${f}"
+                            upload_result = sh label: 'list all permissions', returnStdout: true, script: list_all_permission_cmd
                         }
                         parallel(TASK_COLLECTION)
                     }
