@@ -13,11 +13,11 @@ pipeline {
                     files.each { f ->
                         def TASK_COLLECTION = [:]
                         TASK_COLLECTION["Use aapt"] =  {
-                            check_debug_cmd = "aapt list -v -a ${f} | grep debuggable"
+                            check_debug_cmd = "aapt list -v -a /home/kagi/target/${f} | grep debuggable"
                             upload_result = sh label: 'Check debuggable', returnStdout: true, script: check_debug_cmd
                         }
                         TASK_COLLECTION["Use aapt version 2"] = {
-                            check_debug_cmd = "aapt dump xmltree ${f} AndroidManifest.xml | grep debuggable"
+                            check_debug_cmd = "aapt dump xmltree /home/kagi/target/${f} AndroidManifest.xml | grep debuggable"
                             upload_result = sh label: 'Check debuggable', returnStdout: true, script: check_debug_cmd
                         }
                         parallel(TASK_COLLECTION)
