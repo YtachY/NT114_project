@@ -13,7 +13,7 @@ pipeline {
                     files.each { f ->
                         def TASK_COLLECTION = [:]
                         TASK_COLLECTION["MOBSF"] =  {
-                        def AUTH_KEY = 'e3f181a14905748e06d820c9082fc37ec0211e1b024c13e3c24ef28b6ad92d4f'
+                        def AUTH_KEY = 'd7e6d5516468f345117e2555d05ff589e5bead89b636883f76b66bc23af8d4eb'
                             upload_cmd = "curl -s -S -F 'file=@${env.INPUT_LOCATION}/${f}' http://localhost:8000/api/v1/upload -H 'Authorization:${AUTH_KEY}'"
                             upload_result = sh label: 'Upload Binary', returnStdout: true, script: upload_cmd
                             def response_map = readJSON text: upload_result
