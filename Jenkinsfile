@@ -21,6 +21,7 @@ pipeline {
                             else {
                                 sh "echo '${env.INPUT_LOCATION}/${f}' is DEBUGGABLE"
                             }
+                            sh "echo ${result}"
                         }
                         TASK_COLLECTION["get permissions file ${f}"] = {
                             list_all_permission_cmd = "aapt d permissions ${env.INPUT_LOCATION}/${f}"
